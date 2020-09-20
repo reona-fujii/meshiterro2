@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meshiterro2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+        <a class="navbar-brand" href="/">meshiterro2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">新規登録</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">ログイン</a>
+            </li>
+          </ul>
+
+        </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="main-content">
+        <%= yield %>
+      </div>
+    </div>
+    <footer>
+     <div class="footer bg-dark navbar-dark">
+      <div class="container d-flex">
+        <div class="footer-left">
+          <p>善良な市民同士で無差別に食欲を煽るSNS</p>
+          <a class="navbar-brand" href="/">meshiterro2</a>
+        </div>
+        <nav class="navbar-dark">
+          <ul>
+            <li>
+              <a class="footer-nav-link" href="/">Link</a>
+            </li>
+            <li>
+              <a class="footer-nav-link" href="/">会社概要</a>
+            </li>
+            <li>
+              <a class="footer-nav-link" href="/">プライバシーポリシー</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      </div>
+    </footer>
+  </body>
+</html>
