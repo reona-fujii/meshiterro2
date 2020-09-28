@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-12 post_images_container">
         <div class="post-item">
-
           <div class="post-meta-top">
             <div class="post-image">
               <%= attachment_image_tag @post_image, :image %>
@@ -19,46 +18,61 @@
               <li>
                 <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
               </li>
+              <% if @post_image.favorited_by?(current_user) %>
               <li>
-                <i class="fa fa-heart"></i>
-                <a href="#">202 いいね</a>
+                <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+                  <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                  <%= @post_image.favorites.count %>いいね
+                <% end %>
               </li>
+              <% else %>
+              <li>
+                <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <%= @post_image.favorites.count %> いいね
+                <% end %>
+              </li>
+              <% end %>
               <li>
                 <i class="fa fa-comment"></i>
                 <a href="#comments"><%= @post_image.post_comments.count %></a>
               </li>
             </ul>
-          <div class="post-content-inner mt-20">
-              <p><%= @post_image.caption %></p>
-          </div>
-          <div class="comment-list bt style-2" id="comments">
-            <div class="float-wrapper">
-              <h2 class="comment-count"><%= @post_image.post_comments.count %>件のコメント</h2>
+            <div class="post-content-inner mt-20">
+                <p><%= @post_image.caption %></p>
             </div>
-            <ol>
+            <div class="comment-list bt style-2" id="comments">
+              <div class="float-wrapper">
+                <h2 class="comment-count"><%= @post_image.post_comments.count %>件のコメント</h2>
+              </div>
+              <ol>
               <% @post_image.post_comments.each do |post_comment| %>
               <li class="comment">
                 <div class="comment-body bb">
                   <div class="comment-avatar">
                     <div class="avatar">
-                       <%= image_tag ('sample-author1.jpg'), style: "width: 60px; height: 60px;")  %>
+                       <%= image_tag ('sample-author1.jpg'), style: "width: 60px; height: 60px;" %>
                     </div>
                   </div>
                   <div class="comment-text">
                     <div class="comment-author clearfix">
                       <a href="#" class='link-author'><%= post_comment.user.name %></a>
                       <span class="comment-meta">
-                        <span class="comment-date"><%= post_comment.create_at.strftime('%Y/%m/%d') %></span>
+                        <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
                       </span>
                     </div>
-                    <div class="comment-entry"><%= post_comment.comment %>
+                    <div class="comment-entry"><%= post_comment.comment %></div>
+                    <% if post_comment.user_id == current_user.id %>
+                    <div>
+                      <%= link_to "削除", post_image_post_comment_path(post_comment.post_image_id, post_comment.id), method: :delete, class: "btn btn-danger pull-right" %>
+                    </div>
+                    <% end %>
                   </div>
                 </div>
               </li>
-            </ol>
-          </div>
-          <hr>
-
+              <% end %>
+              </ol>
+            </div>
           <!-- Add comment section -->
           <div class="section-title-wrapper style-1 v1 mt-30" id="divAddComment">
             <h3 class="section-title left">
@@ -68,14 +82,14 @@
           <%= form_with(model:[@post_image, @post_comment], local: true) do |f| %>
             <div class="row">
               <div class="col-sm-12">
-                <%= f.text_area :comment, rows: '5', class: "form-control",placeholder: "コメントをここに" %>
+                <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
               </div>
             </div>
             <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
           <% end %>
-
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
