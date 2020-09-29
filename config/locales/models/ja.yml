@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "名前"
+      post_image:
+        shop_name: "ショップ名"
+        image: "ファイル名"
+      
